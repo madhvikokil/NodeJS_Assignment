@@ -17,8 +17,8 @@ import usersRouter from './routes/users'
 let db = mongoose.connetion
 
 // routes
-let routes = require('./routes/index')
-let user = require('./routes/users')
+// let routes = require('./routes/index')
+// let user = require('./routes/users')
 
 // init app
 let app = express()
