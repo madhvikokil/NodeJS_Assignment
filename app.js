@@ -17,9 +17,9 @@ app.use(express.json())
 
 app.use('/api/users', users)
 app.use('/api/auth', login)
-app.use('/users', specificUser)
-app.use('/users/edit', edituser)
 app.use('/users/list', allUsers)
+app.use('/users', specificUser)
+app.use('/users', specificUser)
 
 const port = process.env.PORT || 4001
 app.listen(port, () => console.log(`Listening on port ${port}...`))

@@ -11,11 +11,11 @@ app.use(bodyParser.urlencoded({
 }))
 
 router.get('/', async (req, res) => {
-  User.find({}, function (error, employee) {
+  User.find({}, function (error, user) {
     if (error) {
       res.send('error has occured')
     } else {
-      res.send(employee)
+      res.send(user)
     }
   })
 })

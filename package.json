@@ -6,7 +6,6 @@
     "start": "./node_modules/.bin/babel-node .app.js"
   },
   "dependencies": {
-    "@babel/core": "^7.8.3",
     "babel-node": "0.0.1-security",
     "bcrypt": "^3.0.7",
     "bcryptjs": "^2.4.3",
@@ -32,6 +31,9 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
+    "@babel/register": "^7.8.3",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-polyfill": "^6.26.0",
