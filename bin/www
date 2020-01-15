@@ -6,9 +6,9 @@
 
 import app from '../app'
 import dotenv from 'dotenv'
+import { createServer } from 'http'
 dotenv.config({ path: './.env' })
 var debug = require('debug')('node-practice:server')
-import { createServer } from 'http'
 
 /**
  * Get port from environment and store in Express.
@@ -16,7 +16,7 @@ import { createServer } from 'http'
 
 var port = normalizePort(process.env.PORT || '3810')
 app.set('port', port)
-console.log("port : ",port)
+console.log('port : ', port)
 
 /**
  * Create HTTP server.
@@ -24,9 +24,9 @@ console.log("port : ",port)
 
 var server = createServer(app)
 
-/**
- * Listen on provided port, on all network interfaces.
- */
+// /**
+//  * Listen on provided port, on all network interfaces.
+//  */
 
 server.listen(port)
 server.on('error', onError)
@@ -68,11 +68,11 @@ function onError (error) {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
+      console.error(bind + ' requires elevated privileges')
       process.exit(1)
       break
     case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
+      console.error(bind + ' is already in use')
       process.exit(1)
       break
     default:
