@@ -1,14 +1,12 @@
 const Joi = require('joi')
 Joi.objectId = require('joi-objectid')(Joi)
 const mongoose = require('mongoose')
-const users = require('./routes/users')
-const login = require('./routes/loginUser')
-const allUsers = require('./routes/allUsers')
-const edituser = require('./routes/editUser')
-const token = require('./routes/token')
-const logout = require('./routes/logout')
+// const users = require('./routes/users')
+// const login = require('./routes/loginUser')
+const allRoutes = require('./routes/allRoutes')
+// const token = require('./routes/token')
 
-const specificUser = require('./routes/specificUser')
+// const specificUser = require('./routes/specificUser')
 const express = require('express')
 const app = express()
 
@@ -18,12 +16,12 @@ mongoose.connect('mongodb://localhost/mongo-games')
 
 app.use(express.json())
 
-app.use('/api/signup', users)
-app.use('/api/auth', login)
-// app.use('/api/logout', logout)
-app.use('/users/list', allUsers)
-app.use('/users/post', token)
-app.use('/users', specificUser)
+app.use('/', allRoutes)
+// app.use('/api/auth', login)
+// // app.use('/api/logout', logout)
+// app.use('/users/list', allUsers)
+// app.use('/users/post', token)
+// app.use('/users', specificUser)
 
 const port = process.env.PORT || 4001
 app.listen(port, () => console.log(`Listening on port ${port}...`))

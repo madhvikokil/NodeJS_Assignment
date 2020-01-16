@@ -42,10 +42,4 @@ function validate (req) {
   return Joi.validate(req, schema)
 }
 
-app.get('/me', (req, res) => {
-  res.json({
-    message: 'Post created'
-  })
-})
-
 module.exports = router
