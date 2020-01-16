@@ -7,7 +7,6 @@ const bcrypt = require('bcrypt')
 const { User } = require('../model/user')
 const express = require('express')
 const router = express.Router()
-const app = express()
 
 router.post('/', async (req, res) => {
   // First Validate The HTTP Request
@@ -28,9 +27,9 @@ router.post('/', async (req, res) => {
   if (!validPassword) {
     return res.status(400).send('Incorrect email or password.')
   }
-  const token = jwt.sign({ _id: user._id, isAdmin: user.isAdmin}, process.env.Token)
-  console.log(process.env.Token)
-  res.send(token)
+  const token = jwt.sign({ _id: user._id, isAdmin: user.isAdmin }, process.env.Token)
+  res.setHeader('authorization', token)
+  res.send('Login Successfully')
 })
 
 function validate (req) {
@@ -41,5 +40,4 @@ function validate (req) {
 
   return Joi.validate(req, schema)
 }
-
 module.exports = router

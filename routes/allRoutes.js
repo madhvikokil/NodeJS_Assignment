@@ -9,66 +9,66 @@ const Joi = require('joi')
 
 // SIGNUP
 
-router.post('/signup', async (req, res) => {
-  // First Validate The Request
-  const { error } = Validate(req.body)
-  if (error) {
-    return res.status(400).send(error.details[0].message)
-  }
+// router.post('/signup', async (req, res) => {
+//   // First Validate The Request
+//   const { error } = Validate(req.body)
+//   if (error) {
+//     return res.status(400).send(error.details[0].message)
+//   }
 
-  // Check if this user already exisits
-  let user = await User.findOne({ email: req.body.email })
-  if (user) {
-    return res.status(400).send('That user already exisits!')
-  } else {
-    // Insert the new user if they do not exist yet
-    user = new User({
-      name: req.body.name,
-      lastname: req.body.lastname,
-      email: req.body.email,
-      password: req.body.password,
-      isAdmin: req.body.isAdmin
-    })
-    const salt = await bcrypt.genSalt(10)
-    user.password = await bcrypt.hash(user.password, salt)
-    await user.save()
-    res.send('Signed up Successfully')
-  }
-})
+//   // Check if this user already exisits
+//   let user = await User.findOne({ email: req.body.email })
+//   if (user) {
+//     return res.status(400).send('That user already exists!')
+//   } else {
+//     // Insert the new user if they do not exist yet
+//     user = new User({
+//       name: req.body.name,
+//       lastname: req.body.lastname,
+//       email: req.body.email,
+//       password: req.body.password,
+//       isAdmin: req.body.isAdmin
+//     })
+//     const salt = await bcrypt.genSalt(10)
+//     user.password = await bcrypt.hash(user.password, salt)
+//     await user.save()
+//     res.send('Signed up Successfully')
+//   }
+// })
 
 // LOGIN
-router.post('/login', async (req, res) => {
-  // First Validate The HTTP Request
-  const { error } = validate(req.body)
-  if (error) {
-    return res.status(400).send(error.details[0].message)
-  }
+// router.post('/login', async (req, res) => {
+//   // First Validate The HTTP Request
+//   const { error } = validate(req.body)
+//   if (error) {
+//     return res.status(400).send(error.details[0].message)
+//   }
 
-  //  Now find the user by their email address
-  const user = await User.findOne({ email: req.body.email })
-  if (!user) {
-    return res.status(400).send('Incorrect email or password.')
-  }
+//   //  Now find the user by their email address
+//   const user = await User.findOne({ email: req.body.email })
+//   if (!user) {
+//     return res.status(400).send('Incorrect email or password.')
+//   }
 
-  // Then validate the Credentials in MongoDB match
-  // those provided in the request
-  const validPassword = await bcrypt.compare(req.body.password, user.password)
-  if (!validPassword) {
-    return res.status(400).send('Incorrect email or password.')
-  }
-  const token = jwt.sign({ _id: user._id, isAdmin: user.isAdmin }, process.env.Token)
-  res.setHeader('authorization', token)
-  res.send('Login Successfully')
-})
+//   // Then validate the Credentials in MongoDB match
+//   // those provided in the request
+//   const validPassword = await bcrypt.compare(req.body.password, user.password)
+//   if (!validPassword) {
+//     return res.status(400).send('Incorrect email or password.')
+//   }
+//   const token = jwt.sign({ _id: user._id, isAdmin: user.isAdmin }, process.env.Token)
+//   res.setHeader('authorization', token)
+//   res.send('Login Successfully')
+// })
 
-function validate (req) {
-  const schema = {
-    email: Joi.string().min(5).max(100).required().email(),
-    password: Joi.string().min(5).max(100).required()
-  }
+// function validate (req) {
+//   const schema = {
+//     email: Joi.string().min(5).max(100).required().email(),
+//     password: Joi.string().min(5).max(100).required()
+//   }
 
-  return Joi.validate(req, schema)
-}
+//   return Joi.validate(req, schema)
+// }
 
 // DASHBOARD
 

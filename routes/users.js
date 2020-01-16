@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
   // Check if this user already exisits
   let user = await User.findOne({ email: req.body.email })
   if (user) {
-    return res.status(400).send('That user already exisits!')
+    return res.status(400).send('That user already exists!')
   } else {
     // Insert the new user if they do not exist yet
     user = new User({
@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
     const salt = await bcrypt.genSalt(10)
     user.password = await bcrypt.hash(user.password, salt)
     await user.save()
-    res.send(user)
+    res.send('Signed up Successfully')
   }
 })
 
