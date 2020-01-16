@@ -21,7 +21,8 @@ router.post('/', async (req, res) => {
       name: req.body.name,
       lastname: req.body.lastname,
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
+      isAdmin: req.body.isAdmin
     })
     const salt = await bcrypt.genSalt(10)
     user.password = await bcrypt.hash(user.password, salt)
@@ -29,5 +30,6 @@ router.post('/', async (req, res) => {
     res.send(user)
   }
 })
+
 
 module.exports = router

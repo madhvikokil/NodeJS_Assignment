@@ -1,10 +1,13 @@
 const jwt = require('jsonwebtoken')
+const dotenv = require('dotenv')
+dotenv.config({ path: './.env' })
 const Joi = require('joi')
 const bcrypt = require('bcrypt')
 // const _ = require('lodash');
 const { User } = require('../model/user')
 const express = require('express')
 const router = express.Router()
+const app = express()
 
 router.post('/', async (req, res) => {
   // First Validate The HTTP Request
@@ -25,7 +28,8 @@ router.post('/', async (req, res) => {
   if (!validPassword) {
     return res.status(400).send('Incorrect email or password.')
   }
-  const token = jwt.sign({ _id: user._id }, 'PrivateKey')
+  const token = jwt.sign({ _id: user._id, isAdmin: user.isAdmin}, process.env.Token)
+  console.log(process.env.Token)
   res.send(token)
 })
 
@@ -37,5 +41,11 @@ function validate (req) {
 
   return Joi.validate(req, schema)
 }
+
+app.get('/me', (req, res) => {
+  res.json({
+    message: 'Post created'
+  })
+})
 
 module.exports = router
