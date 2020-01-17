@@ -1,13 +1,11 @@
 
 import mongoose from 'mongoose'
-const users = require('./routes/users')
-const login = require('./routes/loginUser')
-const allRoutes = require('./routes/allRoutes')
-const token = require('./routes/token')
-
-const specificUser = require('./routes/specificUser')
-const express = require('express')
+import dotenv from 'dotenv'
+import auth from './routes/auth'
+import user from './routes/user'
+import express from 'express'
 const app = express()
+dotenv.config({ path: './.env' })
 
 mongoose.connect('mongodb://localhost/mongo-games')
   .then(() => console.log('Now connected to MongoDB!'))
@@ -15,13 +13,7 @@ mongoose.connect('mongodb://localhost/mongo-games')
 
 app.use(express.json())
 
-app.use('/', allRoutes)
-// app.use('/signup', users)
-// app.use('/login', login)
-// // app.use('/api/logout', logout)
-// app.use('/users/list', allUsers)
-// app.use('/dashboard', token)
-// app.use('/users', specificUser)
-
+app.use('/', auth)
+app.use('/dashboard', user)
 const port = process.env.PORT || 4001
 app.listen(port, () => console.log(`Listening on port ${port}...`))
