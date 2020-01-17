@@ -1,5 +1,7 @@
 import { User } from '../model/user'
 import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+dotenv.config({ path: './.env' })
 
 exports.particular_user = (req, res) => {
   User.findOne({

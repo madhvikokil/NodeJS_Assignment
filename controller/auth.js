@@ -60,7 +60,6 @@ exports.login = async (req, res) => {
   }
 
   const token = jwt.sign({ _id: user._id, isAdmin: user.isAdmin }, process.env.Token)
-  console.log("token;" ,process.env.Token)
   res.setHeader('authorization', token)
   res.send('Login Successfully')
 }
