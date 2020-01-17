@@ -1,6 +1,5 @@
-const Joi = require('joi')
-Joi.objectId = require('joi-objectid')(Joi)
-const mongoose = require('mongoose')
+
+import mongoose from 'mongoose'
 const users = require('./routes/users')
 const login = require('./routes/loginUser')
 const allRoutes = require('./routes/allRoutes')
@@ -16,12 +15,13 @@ mongoose.connect('mongodb://localhost/mongo-games')
 
 app.use(express.json())
 
-app.use('/signup', users)
-app.use('/login', login)
+app.use('/', allRoutes)
+// app.use('/signup', users)
+// app.use('/login', login)
 // // app.use('/api/logout', logout)
 // app.use('/users/list', allUsers)
-app.use('/dashboard', token)
-app.use('/users', specificUser)
+// app.use('/dashboard', token)
+// app.use('/users', specificUser)
 
 const port = process.env.PORT || 4001
 app.listen(port, () => console.log(`Listening on port ${port}...`))

@@ -1,30 +1,18 @@
-const mongoose = require('mongoose')
-const { Joi } = require('joi')
-const UserActivity = mongoose.model('UserActivity', new mongoose.Schema({
+import mongoose from 'mongoose'
+
+const UserActivity = new mongoose.Schema({
   ipAddress: {
-    type: String,
-    required: true
+    type: String
   },
   uaString: {
-    type: String,
-    required: true
+    type: String
   },
   date: {
-    type: String,
-    required: true
+    type: Date
+  },
+  id: {
+    type: String
   }
-}, { collection: 'userActivity' }))
+}, { collection: 'userActivity' })
 
-const validateActivity = (userActivity) => {
-  const schemaTest = {
-    ipAddress: Joi.string().required(),
-    uaString: Joi.string().required(),
-    date: Joi.string().required()
-
-  }
-
-  return Joi.validate(userActivity, schemaTest)
-}
-
-module.UserActivity = UserActivity
-module.Validate = validateActivity
+module.exports = mongoose.model('userActivity', UserActivity)

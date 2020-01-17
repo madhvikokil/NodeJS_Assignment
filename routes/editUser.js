@@ -12,16 +12,16 @@ router.put('/:id', function (req, res) {
              name: req.body.name,
              lastname: req.body.lastname,
              email: req.body.email,
-             password: req.body.password,
-             upsert: true
-           },
-    function (error, user) {
-      if (error) {
-        console.log('error ocured')
-      } else {
-        console.log(user)
-        res.status(204)
-      }
+             password: req.body.password
+           }
+  },
+  { upsert: true },
+  function (error, user) {
+    if (error) {
+      console.log('error ocured')
+    } else {
+      console.log(user)
+      res.status(204)
     }
   })
 })

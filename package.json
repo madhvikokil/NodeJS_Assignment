@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "./node_modules/.bin/babel-node .app.js"
+    "start": "./node_modules/.bin/babel-node app.js"
   },
   "dependencies": {
-    "babel-node": "0.0.1-security",
+    "@babel/node": "^7.8.3",
+    "babel-node": "7.8.3",
     "bcrypt": "^3.0.7",
     "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
