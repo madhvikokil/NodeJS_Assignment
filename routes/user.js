@@ -3,12 +3,14 @@ const express = require('express')
 const router = express.Router()
 
 // DASHBOARD
-router.get('/', UserController.show_user_condition)
+router.get('/', UserController.showUserCondition)
 
 // SEARCH BY ID
-router.get('/users/:id', UserController.particular_user)
+router.get('/users/:id', UserController.particularUser)
 
 // UPDATE
-router.put('/users/:id', UserController.update_user)
+router.put('/users/:id', UserController.updateUser)
+
+router.get('/usersactivity', UserController.lastActive)
 
 module.exports = router

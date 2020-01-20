@@ -1,9 +1,10 @@
 import { User } from '../model/user'
+import { UserActivity } from '../model/userActivity'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 dotenv.config({ path: './.env' })
 
-exports.particular_user = (req, res) => {
+exports.particularUser = (req, res) => {
   User.findOne({
     _id: req.params.id
   }, function (error, books) {
@@ -15,7 +16,7 @@ exports.particular_user = (req, res) => {
   })
 }
 
-exports.update_user = (req, res) => {
+exports.updateUser = (req, res) => {
   User.findOneAndUpdate({
     _id: req.params.id
   },
@@ -30,15 +31,14 @@ exports.update_user = (req, res) => {
   { new: true },
   function (error, user) {
     if (error) {
-      console.log('error ocured')
+      res.send(error)
     } else {
-      console.log(user)
       res.send(user)
     }
   })
 }
 
-exports.show_user_condition = function (req, res) {
+exports.showUserCondition = function (req, res) {
   var token = req.headers.token
   if (!token) return req.status(401).send({ auth: false, message: 'No token provided.' })
 
@@ -51,11 +51,19 @@ exports.show_user_condition = function (req, res) {
           res.send('error has occured....')
         } else {
           res.send(user)
-          console.log(user)
         }
       })
     } else {
       res.send('Not an Admin User')
     }
   })
+}
+
+exports.lastActive = async (req, res) => {
+  const newDate = new Date()
+  const dt = newDate.setDate(newDate.getDate() - process.env.NOT_LOGGED_IN)
+  console.log(dt)
+  const response = await UserActivity.find({ date: { $lt: dt } }).populate('userData').exec()
+  console.log(response)
+  return res.status(200).send(response)
 }

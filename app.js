@@ -7,7 +7,7 @@ import express from 'express'
 const app = express()
 dotenv.config({ path: './.env' })
 
-mongoose.connect('mongodb://localhost/usersInfo')
+mongoose.connect('mongodb://localhost/mongo-games')
   .then(() => console.log('Now connected to MongoDB!'))
   .catch(err => console.error('Something went wrong', err))
 
