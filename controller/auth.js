@@ -51,12 +51,11 @@ exports.login = async (req, res) => {
     uaString: req.headers['user-agent'],
     date: new Date().toLocaleDateString()
   })
+  await userActivity.save()
   try {
-    const saveActivity = await userActivity.save()
-    // res.send(saveActivity)
-    console.log('Stored data ', saveActivity)
+    res.send('Logged Successfully')
   } catch (err) {
-    // res.status(400).send(err)
+    res.status(400).send(err)
   }
 
   const token = jwt.sign({ _id: user._id, isAdmin: user.isAdmin }, process.env.Token)

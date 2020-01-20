@@ -13,6 +13,6 @@ const UserActivity = new mongoose.Schema({
   id: {
     type: String
   }
-}, { collection: 'userActivity' })
+}, { collection: 'userActivity', ref: 'userData' })
 
 module.exports = mongoose.model('userActivity', UserActivity)

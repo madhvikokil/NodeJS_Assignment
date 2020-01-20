@@ -1,5 +1,6 @@
 import { User } from '../model/user'
-import { UserActivity } from '../model/userActivity'
+import mongoose from 'mongoose'
+import UserActivity from '../model/userActivity'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 dotenv.config({ path: './.env' })
