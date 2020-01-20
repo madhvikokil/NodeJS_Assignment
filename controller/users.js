@@ -1,5 +1,5 @@
 import { User } from '../model/user'
-import { UserActivity } from '../model/userActivity'
+import UserActivity from '../model/userActivity'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 dotenv.config({ path: './.env' })
