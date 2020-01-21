@@ -23,9 +23,9 @@ exports.signup = async (req, res) => {
       password: req.body.password,
       isAdmin: req.body.isAdmin
     });
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(user.password, salt);
-    await user.save();
+    const salt = bcrypt.genSalt(10);
+    user.password = bcrypt.hash(user.password, salt);
+    user.save();
     res.send('Signed up Successfully');
   }
 };
@@ -53,15 +53,12 @@ exports.login = async (req, res) => {
   });
   await userActivity.save();
   try {
-    // res.send('Logged Successfully')
+    const token = jwt.sign({ _id: user._id, isAdmin: user.isAdmin }, process.env.TOKEN);
+    res.send(token);
     console.log('log in');
   } catch (err) {
     res.status(400).send(err);
   }
-
-  const token = jwt.sign({ _id: user._id, isAdmin: user.isAdmin }, process.env.TOKEN);
-  res.setHeader('authorization', token);
-  res.send(token);
 };
 
 exports.particularUser = (req, res) => {
@@ -80,7 +77,6 @@ exports.updateUser = (req, res) => {
   User.findOneAndUpdate({
     _id: req.params.id
   },
-
   {
     $set:
         {
@@ -124,6 +120,9 @@ exports.lastActive = async (req, res) => {
   const dt = newDate.setDate(newDate.getDate() - process.env.NOT_LOGGED_IN);
   console.log(dt);
   const response = await UserActivity.find({ date: { $lt: dt } }).populate('userData').exec();
-  console.log(response);
-  return res.status(200).send(response);
+  try {
+    res.status(200).send(response);
+  } catch (error) {
+    res.statue(400).send('Incorrect');
+  }
 };
