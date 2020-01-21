@@ -11,6 +11,7 @@ exports.signup = async (req, res) => {
   try {
     const { error } = validateRegister(req.body);
     if (error) {
+      console.log(error.details[0].message);
       return res.status(400).send(error.details[0].message);
     }
     let user = await User.findOne({ email: req.body.email });
