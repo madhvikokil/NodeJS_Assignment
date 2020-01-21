@@ -37,13 +37,16 @@ If you need to update `npm`, you can make it using `npm`! Cool right? After runn
 
     $ sudo apt update
     $ sudo apt install -y mongodb
+    
+ - ####
 
     First, check the service’s status:
     $ sudo systemctl status mongodb
-
+-####
     Start the server,
     $ sudo systemctl status mongodb
     $ mongo
+  - ####
 
     Stop the serve,
     $ sudo systemctl stop mongodb
