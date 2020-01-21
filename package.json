@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "./node_modules/.bin/babel-node app.js",
-    "lint": "eslint app.js validation model controller routes --fix"
+    "lint": "eslint app.js validation model controller routes database.js --fix"
     },
   "dependencies": {
     "@babel/node": "^7.8.3",
