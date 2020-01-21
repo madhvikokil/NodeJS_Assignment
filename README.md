@@ -2,9 +2,10 @@
 
 # Prerequisite
 
-NodeJS
-NPM
-MongoDB
+- #### NodeJS
+- #### NPM
+- #### MongoDB
+- #### Postman
 
 ### Node
 - #### Node installation on Windows
