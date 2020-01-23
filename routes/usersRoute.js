@@ -1,23 +1,24 @@
 import express from 'express';
-import AuthController from '../controller/user';
+import Controller from '../controller/user';
+import CheckValidations from '../middleware/validation';
 const router = express.Router();
 
 // SIGNUP
-router.post('/signup', AuthController.signup);
+router.post('/signup', CheckValidations.validateRegister, Controller.signup);
 
 // LOGIN
-router.post('/login', AuthController.login);
+router.post('/login', CheckValidations.validateLogin, Controller.login);
 
 // DASHBOARD
-router.get('/dashboard', AuthController.showUserCondition);
+router.get('/dashboard', Controller.showUserCondition);
 
 // SEARCH BY ID
-router.get('/dashboard/users/:id', AuthController.particularUser);
+router.get('/dashboard/users/:id', Controller.particularUser);
 
 // UPDATE
-router.put('/dashboard/users/:id', AuthController.updateUser);
+router.put('/dashboard/users/:id', Controller.updateUser);
 
 // Check 5 days data
-router.get('/dashboard/usersactivity', AuthController.lastActive);
+router.get('/dashboard/usersactivity', Controller.lastActive);
 
 module.exports = router;
