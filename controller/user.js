@@ -30,32 +30,29 @@ class RoutingFunction {
   };
 
   login = async (req, res) => {
-    const user = await User.findOne({ email: req.body.email });
-    if (!user) {
-      return res.status(400).send('Incorrect email or password.');
-    }
-    const validPassword = await bcrypt.compare(req.body.password, user.password);
-    if (!validPassword) {
-      return res.status(400).send('Incorrect email or password.');
-    }
-
-    const userActivity = new UserActivity({
-      id: user._id,
-      ipAddress: req.ip,
-      uaString: req.headers['user-agent'],
-      date: new Date().toLocaleDateString()
-    });
     try {
-      const saveActivity = await userActivity.save();
-      // res.send(saveActivity)
-      console.log('Stored data ', saveActivity);
-    } catch (err) {
-      // res.status(400).send(err)
-    }
+      const user = await User.findOne({ email: req.body.email });
+      if (!user) {
+        return res.status(400).send('Incorrect email or password.');
+      }
+      const validPassword = await bcrypt.compare(req.body.password, user.password);
+      if (!validPassword) {
+        return res.status(400).send('Incorrect email or password.');
+      }
 
-    const token = jwt.sign({ _id: user._id, isAdmin: user.isAdmin }, process.env.TOKEN);
-    res.setHeader('authorization', token);
-    res.send('Login Successfully');
+      const userActivity = new UserActivity({
+        id: user._id,
+        ipAddress: req.ip,
+        uaString: req.headers['user-agent'],
+        date: new Date().toLocaleDateString()
+      });
+      await userActivity.save();
+      const token = jwt.sign({ _id: user._id, isAdmin: user.isAdmin }, process.env.TOKEN);
+      res.setHeader('authorization', token);
+      res.send(token);
+    } catch (error) {
+      return res.send('error...');
+    }
   };
 
   particularUser = (req, res) => {
