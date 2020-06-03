@@ -1,5 +1,4 @@
-import mongoose from 'mongoose'
-import Joi from 'joi'
+import mongoose from 'mongoose';
 
 const User = mongoose.model('User', new mongoose.Schema({
   name: {
@@ -31,18 +30,6 @@ const User = mongoose.model('User', new mongoose.Schema({
     required: true
   }
 
-}, { collection: 'userData' }))
+}, { collection: 'userData' }));
 
-const validateUser = (user) => {
-  const schemaTest = {
-    name: Joi.string().min(5).max(100).required(),
-    lastname: Joi.string().min(5).max(100).required(),
-    email: Joi.string().min(5).max(100).required().email(),
-    password: Joi.string().min(5).max(100).required(),
-    isAdmin: Joi.boolean().required()
-  }
-  return Joi.validate(user, schemaTest)
-}
-
-exports.User = User
-exports.Validate = validateUser
+exports.User = User;

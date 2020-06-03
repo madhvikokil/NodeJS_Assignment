@@ -16,5 +16,7 @@ module.exports = {
     sourceType: 'module'
   },
   rules: {
-  }
+    semi: ["error", "always"]
+  },
+  parser: "babel-eslint"
 }

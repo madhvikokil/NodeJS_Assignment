@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 const UserActivity = new mongoose.Schema({
   ipAddress: {
@@ -13,6 +13,6 @@ const UserActivity = new mongoose.Schema({
   id: {
     type: String
   }
-}, { collection: 'userActivity' })
+}, { collection: 'userActivity', ref: 'userData' });
 
-module.exports = mongoose.model('userActivity', UserActivity)
+module.exports = mongoose.model('userActivity', UserActivity);
